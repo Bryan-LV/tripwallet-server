@@ -37,8 +37,10 @@ const tripQueries = {
       const client = createClient(process.env.PEXELSKEY);
 
       const query = args.query;
+      const queryObject = { query, per_page: 10 }
+      if (args.page) queryObject.page = args.page
 
-      const req = await client.photos.search({ query, per_page: 10 })
+      const req = await client.photos.search(queryObject)
       const res = req.photos;
       return res;
 

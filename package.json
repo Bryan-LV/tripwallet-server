@@ -2,7 +2,7 @@
   "name": "tripwallet",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "server": "nodemon server",
     "client": "npm start --prefix client",
@@ -20,11 +20,11 @@
     "graphql": "^15.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.15",
-    "pexels": "^1.0.1"
+    "pexels": "^1.0.1",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "dotenv": "^8.2.0",
     "jest": "^26.0.1",
     "nodemon": "^2.0.4"
   }

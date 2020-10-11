@@ -9,9 +9,10 @@ db();
 
 const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
+  cors: true,
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req })
+  context: ({ req }) => ({ req }),
 });
 
 

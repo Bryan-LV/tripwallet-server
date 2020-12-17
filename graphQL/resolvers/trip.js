@@ -19,6 +19,7 @@ const tripQueries = {
       throw new ApolloError(error);
     }
   },
+
   getTrips: async (parent, args, context) => {
     try {
       let user = checkAuth(context);
@@ -31,18 +32,18 @@ const tripQueries = {
       throw new ApolloError(error);
     }
   },
+
   getPhotos: async (parent, args, context) => {
     try {
       checkAuth(context);
       const client = createClient(process.env.PEXELSKEY);
 
       const query = args.query;
-      const queryObject = { query, per_page: 10 }
-      if (args.page) queryObject.page = args.page
+      const queryObject = { query };
+      if (args.page) queryObject.page = args.page;
 
-      const req = await client.photos.search(queryObject)
-      const res = req.photos;
-      return res;
+      const req = await client.photos.search(queryObject);
+      return req;
 
     } catch (error) {
       console.log(error);

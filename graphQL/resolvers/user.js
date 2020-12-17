@@ -37,7 +37,8 @@ const userQueries = {
 const userResolvers = {
   ///////////////////// Register User /////////////////////
   register: async (_, { registerUser }) => {
-    const { username, email, name, baseCurrency, password, confirmPassword } = registerUser;
+    console.log(registerUser)
+    const { username, email, baseCurrency, password, confirmPassword } = registerUser;
     try {
       // validate user inputs
       const { error } = RegisterValidation.validate(registerUser);
@@ -47,10 +48,12 @@ const userResolvers = {
       if (user) throw new UserInputError('This user has existing account');
       user = await User.findOne({ username });
       if (user) throw new UserInputError('This username is taken');
+      // Double check passwords match
+      if (password !== confirmPassword) throw new UserInputError('Passwords do not match');
       // hash password
       const hashPassword = await bcrypt.hash(password, 10);
       // save to db
-      user = new User({ username, email, name, baseCurrency, password: hashPassword });
+      user = new User({ username, email, baseCurrency, password: hashPassword });
       const savedUser = await user.save();
       // generate token
       const token = generateToken(savedUser);

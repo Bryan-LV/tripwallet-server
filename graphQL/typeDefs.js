@@ -1,10 +1,31 @@
 const { gql } = require("apollo-server");
 
 module.exports = gql`
+  type Query {
+    user(id: ID!): User
+    users: [User]
+    getTrip(id:ID!):Trip
+    getTrips: [Trip]
+    checkAuth: Response!
+    getPhotos(query: String!, page: Int): PexelsResponse
+  }
+
+  type Mutation {
+    register(registerUser: RegisterInput): User
+    login(loginUser: LoginInput): User
+    deleteUser(id:ID!): Response
+    updateUser(updateUser: UpdateInput): User
+    createTrip(createTrip: CreateTrip): Trip
+    updateTrip(updateTrip:UpdateTrip): Trip
+    deleteTrip(tripID:ID!): Response
+    createExpense(newExpense: NewExpense): Expense
+    updateExpense(updateExpense: UpdateExpense): Expense
+    deleteExpense(expenseID: ID!): Response
+  }
+
   type User {
     _id: ID!
     username: String!
-    name: String!
     email:String!
     baseCurrency: String!
     createdAt:String!
@@ -40,6 +61,15 @@ module.exports = gql`
     notes: String
   }
 
+  type PexelsResponse {
+    total_results: Int
+    page: Int
+    per_page: Int
+    next_page: String
+    prev_page: String
+    photos: [Photo]
+  }
+
   type Photo {
     id: Int
     width: Int
@@ -67,30 +97,7 @@ module.exports = gql`
     isValid: Boolean
   }
 
-  type Query {
-    user(id: ID!): User
-    users: [User]
-    getTrip(id:ID!):Trip
-    getTrips: [Trip]
-    checkAuth: Response!
-    getPhotos(query: String!): [Photo]
-  }
-
-  type Mutation {
-    register(registerUser: RegisterInput): User
-    login(loginUser: LoginInput): User
-    deleteUser(id:ID!): Response
-    updateUser(updateUser: UpdateInput): User
-    createTrip(createTrip: CreateTrip): Trip
-    updateTrip(updateTrip:UpdateTrip): Trip
-    deleteTrip(tripID:ID!): Response
-    createExpense(newExpense: NewExpense): Expense
-    updateExpense(updateExpense: UpdateExpense): Expense
-    deleteExpense(expenseID: ID!): Response
-  }
-
   input RegisterInput {
-    name: String! 
     username:String! 
     email: String!
     baseCurrency: String! 
@@ -105,7 +112,6 @@ module.exports = gql`
 
   input UpdateInput {
     id: ID!
-    name: String
     username: String
     email: String
     baseCurrency: String

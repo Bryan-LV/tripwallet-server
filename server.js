@@ -14,7 +14,7 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => ({ req }),
   cors: {
-    origin: 'https://tripwalletserver.herokuapp.com/',
+    origin: 'https://tripwallet.netlify.app',
     credentials: true
   }
 });

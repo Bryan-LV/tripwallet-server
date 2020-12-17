@@ -37,8 +37,8 @@ const userQueries = {
 const userResolvers = {
   ///////////////////// Register User /////////////////////
   register: async (_, { registerUser }) => {
-    console.log(registerUser)
     const { username, email, baseCurrency, password, confirmPassword } = registerUser;
+
     try {
       // validate user inputs
       const { error } = RegisterValidation.validate(registerUser);

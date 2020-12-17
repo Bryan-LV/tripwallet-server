@@ -84,11 +84,12 @@ const expenseResolvers = {
       let user = checkAuth(context);
       // get expense and trip
       let expense = await Expense.findById(expenseID);
-      if (!expense) { throw ('Expense does not exists'); }
+      if (!expense) throw new Error('Expense does not exists');
       // check user cannot delete expense that is not their own
       // check expense's tripID > trip.user === user.id who is deleting expense
       let trip = await Trip.findById(expense.tripID);
-      if (toString(user._id) !== toString(trip.user)) throw ('User is not authorized to delete this expense');
+      if (toString(user._id) !== toString(trip.user)) throw new Error('User is not authorized to delete this expense');
+
       const updatedTotal = currencyjs(trip.totalSpent).subtract(expense.baseCurrencyPrice);
       trip.totalSpent = updatedTotal;
       await trip.save();

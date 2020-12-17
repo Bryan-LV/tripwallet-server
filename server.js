@@ -7,14 +7,20 @@ const resolvers = require('./graphQL/resolvers');
 // connect database
 db();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
+
+
 const server = new ApolloServer({
-  cors: true,
   typeDefs,
   resolvers,
   context: ({ req }) => ({ req }),
+  cors: {
+    origin: ['https://tripwalletserver.herokuapp.com/',
+      process.env.NODE_ENV !== "production" && 'http://localhost:3000'
+    ],
+    credentials: true
+  }
 });
-
 
 server.listen({ port: PORT }).then(({ url }) => console.log(url));
 

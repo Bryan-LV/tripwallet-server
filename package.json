@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server",
-    "start": "node server",
-    "build": "node server"
+    "start": "node server"
   },
   "keywords": [],
   "author": "Bryan Almaraz",

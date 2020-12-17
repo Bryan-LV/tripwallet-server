@@ -9,15 +9,12 @@ db();
 
 const PORT = process.env.PORT || 5000;
 
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => ({ req }),
   cors: {
-    origin: ['https://tripwalletserver.herokuapp.com/',
-      process.env.NODE_ENV !== "production" && 'http://localhost:3000'
-    ],
+    origin: 'https://tripwalletserver.herokuapp.com/',
     credentials: true
   }
 });

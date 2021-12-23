@@ -54,7 +54,7 @@ module.exports = gql`
     category: String!,
     expenseName: String!
     foreignPrice: Float!
-    baseCurrencyPrice: Float!
+    baseCurrencyPrice: Float
     spread: Int
     startDate: String
     endDate: String
